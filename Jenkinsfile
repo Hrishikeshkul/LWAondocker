@@ -11,8 +11,8 @@ pipeline {
         stage('SCM') {
             steps {
                 sh '''
-                rm -rf project
-                git clone https://github.com/Hrishikeshkul/project.git
+                rm -rf LWAondocker
+                git clone https://github.com/Hrishikeshkul/LWAondocker.git
                 '''
             }
         }
@@ -20,7 +20,7 @@ pipeline {
         stage('BUILD') {
             steps {
                 sh '''
-                cd /mnt/war/project
+                cd /mnt/war/LWAondocker
                 mvn clean package
                 '''
             }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 sh '''
                 aws s3 cp \
-                /mnt/war/project/target/LoginWebApp.war \
+                /mnt/war/LWAondocker/target/LoginWebApp.war \
                 s3://war-loginwebap/
                 '''
             }
